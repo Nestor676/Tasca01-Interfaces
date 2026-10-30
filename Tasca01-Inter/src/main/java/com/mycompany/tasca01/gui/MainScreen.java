@@ -4,6 +4,11 @@
  */
 package com.mycompany.tasca01.gui;
 
+import com.mycompany.tasca01.dto.MiHeaderRenderer;
+import java.awt.Color;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
 /**
  *
  * @author Alumne
@@ -17,6 +22,17 @@ public class MainScreen extends javax.swing.JFrame {
      */
     public MainScreen() {
         initComponents();
+        
+        InitializeTable();
+    }
+    
+    private void InitializeTable(){
+        DefaultTableModel dtm = new DefaultTableModel();
+        
+        dtm.setColumnIdentifiers(new String[] {"Núm. registre", "Titol del joc", "Usuari que l'ha llogat", "Plataforma", "Data d'inici", "Data de tornada", "Gènere"});
+        jTable1.setModel(dtm);
+        
+        jTable1.getTableHeader().setDefaultRenderer(new MiHeaderRenderer());
     }
 
     /**
@@ -30,33 +46,91 @@ public class MainScreen extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabelNumero = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenuLloguer = new javax.swing.JMenu();
+        jMenuRegistrar = new javax.swing.JMenuItem();
+        jMenuTornar = new javax.swing.JMenuItem();
+        jMenuUsuari = new javax.swing.JMenu();
+        jMenuCrearUsuari = new javax.swing.JMenuItem();
+        jMenuBorrarUsuari = new javax.swing.JMenuItem();
+        jMenuJoc = new javax.swing.JMenu();
+        jMenuCrearJoc = new javax.swing.JMenuItem();
+        jMenuBorrarJoc = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+
+        jLabel1.setText("Total de lloguers: ");
+
+        jLabelNumero.setText("0");
+
+        jMenuLloguer.setText("Lloguer");
+
+        jMenuRegistrar.setText("Registrar");
+        jMenuLloguer.add(jMenuRegistrar);
+
+        jMenuTornar.setText("Tornar");
+        jMenuLloguer.add(jMenuTornar);
+
+        jMenuBar1.add(jMenuLloguer);
+
+        jMenuUsuari.setText("Usuari");
+
+        jMenuCrearUsuari.setText("Crear");
+        jMenuUsuari.add(jMenuCrearUsuari);
+
+        jMenuBorrarUsuari.setText("Borrar");
+        jMenuUsuari.add(jMenuBorrarUsuari);
+
+        jMenuBar1.add(jMenuUsuari);
+
+        jMenuJoc.setText("Joc");
+
+        jMenuCrearJoc.setText("Crear");
+        jMenuJoc.add(jMenuCrearJoc);
+
+        jMenuBorrarJoc.setText("Borrar");
+        jMenuJoc.add(jMenuBorrarJoc);
+
+        jMenuBar1.add(jMenuJoc);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelNumero)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 25, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabelNumero))
+                .addGap(0, 14, Short.MAX_VALUE))
         );
 
         pack();
@@ -88,6 +162,18 @@ public class MainScreen extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabelNumero;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuBorrarJoc;
+    private javax.swing.JMenuItem jMenuBorrarUsuari;
+    private javax.swing.JMenuItem jMenuCrearJoc;
+    private javax.swing.JMenuItem jMenuCrearUsuari;
+    private javax.swing.JMenu jMenuJoc;
+    private javax.swing.JMenu jMenuLloguer;
+    private javax.swing.JMenuItem jMenuRegistrar;
+    private javax.swing.JMenuItem jMenuTornar;
+    private javax.swing.JMenu jMenuUsuari;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
