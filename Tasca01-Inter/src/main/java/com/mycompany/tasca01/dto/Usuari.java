@@ -67,4 +67,9 @@ public class Usuari {
     public void setRegistro(Date registro) {
         this.registro = registro;
     }
+    
+    @Override
+    public String toString() {
+        return nom + " " + apellido1;
+    }
 }

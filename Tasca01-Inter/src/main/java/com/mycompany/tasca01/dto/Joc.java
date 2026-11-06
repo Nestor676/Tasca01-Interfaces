@@ -37,11 +37,16 @@ public class Joc {
         this.genero = genero;
     }
 
-    public ArrayList<Plataforma> getPlataforma() {
+    public ArrayList<Plataforma> getPlataformas() {
         return plataformas;
     }
 
-    public void setPlataforma(ArrayList<Plataforma> plataformas) {
+    public void setPlataformas(ArrayList<Plataforma> plataformas) {
         this.plataformas = plataformas;
+    }
+    
+    @Override
+    public String toString() {
+        return nom;
     }
 }

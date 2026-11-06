@@ -65,6 +65,7 @@ public class CrearUsuario extends javax.swing.JDialog {
 
         btnCancelar.setBackground(new java.awt.Color(204, 204, 204));
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(this::btnCancelarActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -160,6 +161,10 @@ public class CrearUsuario extends javax.swing.JDialog {
     private void txtCognom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCognom1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCognom1ActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

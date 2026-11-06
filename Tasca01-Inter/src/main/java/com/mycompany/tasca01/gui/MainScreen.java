@@ -133,6 +133,7 @@ public class MainScreen extends javax.swing.JFrame {
         jMenuLloguer.setText("Lloguer");
 
         jMenuRegistrar.setText("Registrar");
+        jMenuRegistrar.addActionListener(this::jMenuRegistrarActionPerformed);
         jMenuLloguer.add(jMenuRegistrar);
 
         jMenuTornar.setText("Tornar");
@@ -197,6 +198,13 @@ public class MainScreen extends javax.swing.JFrame {
 
         ventana.setVisible(true);
     }//GEN-LAST:event_jMenuCrearUsuariActionPerformed
+
+    private void jMenuRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRegistrarActionPerformed
+        RegistrarLloguer ventana2 = new RegistrarLloguer(this, true);
+        
+        ventana2.setLocationRelativeTo(this);
+        ventana2.setVisible(true);
+    }//GEN-LAST:event_jMenuRegistrarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
