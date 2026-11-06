@@ -10,6 +10,7 @@ public class Lloguer {
     private Date inicio;
     private Date devolver;
     private Plataforma plataforma;
+    private boolean devuelto;
     
     public Lloguer(int numeroRegistro, Usuari usuari, Joc joc, Date inicio, Date devolver, Plataforma plataforma){
         this.numeroRegistro = numeroRegistro;
@@ -18,6 +19,7 @@ public class Lloguer {
         this.inicio = inicio;
         this.devolver = devolver;
         this.plataforma = plataforma;
+        this.devuelto = false;
     }
 
     public int getNumeroRegistro() {
@@ -66,5 +68,13 @@ public class Lloguer {
 
     public void setPlataforma(Plataforma plataforma) {
         this.plataforma = plataforma;
+    }
+    
+    public boolean isRetornat() {
+        return devuelto;
+    }
+
+    public void setRetornat(boolean devuelto) {
+        this.devuelto = devuelto;
     }
 }

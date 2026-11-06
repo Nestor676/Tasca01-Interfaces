@@ -8,6 +8,10 @@ import com.mycompany.tasca01.dto.MiHeaderRenderer;
 import java.awt.Color;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import com.mycompany.tasca01.dto.Lloguer;
+import com.mycompany.tasca01.gestion.GestionDatos;
+import java.text.SimpleDateFormat;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -22,18 +26,66 @@ public class MainScreen extends javax.swing.JFrame {
      */
     public MainScreen() {
         initComponents();
-        
+
+        GestionDatos.inicialitzarDades();
+
         InitializeTable();
+        cargarTabla();
     }
     
-    private void InitializeTable(){
-        DefaultTableModel dtm = new DefaultTableModel();
-        
-        dtm.setColumnIdentifiers(new String[] {"Núm. registre", "Titol del joc", "Usuari que l'ha llogat", "Plataforma", "Data d'inici", "Data de tornada", "Gènere"});
+    private void InitializeTable() {
+
+        DefaultTableModel dtm = new DefaultTableModel() {
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+
+        dtm.setColumnIdentifiers(new String[]{
+            "Núm. registre",
+            "Títol del joc",
+            "Usuari que l'ha llogat",
+            "Plataforma",
+            "Data d'inici",
+            "Data de tornada",
+            "Gènere"
+        });
+
         jTable1.setModel(dtm);
-        
-        jTable1.getTableHeader().setDefaultRenderer(new MiHeaderRenderer());
+
+        jTable1.getTableHeader()
+                .setDefaultRenderer(new MiHeaderRenderer());
     }
+    
+    private void cargarTabla() {
+
+    DefaultTableModel dtm =
+            (DefaultTableModel) jTable1.getModel();
+
+    dtm.setRowCount(0);
+
+    SimpleDateFormat sdf =
+            new SimpleDateFormat("dd/MM/yyyy");
+
+    for (Lloguer l : GestionDatos.lloguers) {
+
+        dtm.addRow(new Object[]{
+            l.getNumeroRegistro(),
+            l.getJoc().getNom(),
+            l.getUsuari().getNom(),
+            l.getPlataforma().getNom(),
+            sdf.format(l.getInicio()),
+            sdf.format(l.getDevolver()),
+            l.getJoc().getGenero()
+        });
+    }
+
+    jLabelNumero.setText(
+            String.valueOf(GestionDatos.lloguers.size())
+    );
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -91,6 +143,7 @@ public class MainScreen extends javax.swing.JFrame {
         jMenuUsuari.setText("Usuari");
 
         jMenuCrearUsuari.setText("Crear");
+        jMenuCrearUsuari.addActionListener(this::jMenuCrearUsuariActionPerformed);
         jMenuUsuari.add(jMenuCrearUsuari);
 
         jMenuBorrarUsuari.setText("Borrar");
@@ -136,9 +189,15 @@ public class MainScreen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jMenuCrearUsuariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCrearUsuariActionPerformed
+
+        CrearUsuario ventana = new CrearUsuario(this, true);
+
+        ventana.setLocationRelativeTo(this);
+
+        ventana.setVisible(true);
+    }//GEN-LAST:event_jMenuCrearUsuariActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

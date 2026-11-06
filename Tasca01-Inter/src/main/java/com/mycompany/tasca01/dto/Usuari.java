@@ -8,10 +8,10 @@ public class Usuari {
     private String apellido1;
     private String apellido2;
     private String DNI;
-    private int telefono;
+    private String telefono;
     private Date registro;
     
-    public Usuari(String nom, String apellido1, String apellido2, String DNI, int telefono, Date registro){
+    public Usuari(String nom, String apellido1, String apellido2, String DNI, String telefono, Date registro){
         this.nom = nom;
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;
@@ -52,11 +52,11 @@ public class Usuari {
         this.DNI = DNI;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 

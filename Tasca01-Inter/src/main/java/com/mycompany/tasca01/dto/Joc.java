@@ -4,6 +4,8 @@
  */
 package com.mycompany.tasca01.dto;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Alumne
@@ -11,11 +13,12 @@ package com.mycompany.tasca01.dto;
 public class Joc {
     private String nom;
     private String genero;
-    private Plataforma plataforma;
+    private ArrayList<Plataforma> plataformas;
     
-    public Joc(String nom, String genero, Plataforma plataforma){
+    public Joc(String nom, String genero, ArrayList<Plataforma> plataformas){
         this.nom = nom;
         this.genero = genero;
+        this.plataformas = plataformas;
     }
 
     public String getNom() {
@@ -34,11 +37,11 @@ public class Joc {
         this.genero = genero;
     }
 
-    public Plataforma getPlataforma() {
-        return plataforma;
+    public ArrayList<Plataforma> getPlataforma() {
+        return plataformas;
     }
 
-    public void setPlataforma(Plataforma plataforma) {
-        this.plataforma = plataforma;
+    public void setPlataforma(ArrayList<Plataforma> plataformas) {
+        this.plataformas = plataformas;
     }
 }
