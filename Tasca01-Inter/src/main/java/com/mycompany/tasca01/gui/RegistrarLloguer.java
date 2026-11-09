@@ -8,21 +8,32 @@ import com.mycompany.tasca01.dto.Joc;
 import com.mycompany.tasca01.dto.Plataforma;
 import com.mycompany.tasca01.dto.Usuari;
 import com.mycompany.tasca01.gestion.GestionDatos;
+import java.util.Calendar;
+import java.util.Date;
+import static javax.swing.JOptionPane.showMessageDialog;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerDateModel;
 
-/**
- *
- * @author Alumne
- */
 public class RegistrarLloguer extends javax.swing.JDialog {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistrarLloguer.class.getName());
 
-    /**
-     * Creates new form RegistrarLloguer
-     */
     public RegistrarLloguer(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        jSpinner2.setEnabled(false);
+        jSpinner1.setEnabled(false);
+        
+        configurarFechas();
+
+        carregarUsuaris();
+        carregarJocs();
+
+        txtRegistro.setEditable(false);
+        txtRegistro.setText(String.valueOf(GestionDatos.lloguers.size() + 1));
+
+        actualizarPlataformas();
     }
 
     private void carregarUsuaris() {
@@ -30,7 +41,15 @@ public class RegistrarLloguer extends javax.swing.JDialog {
         cmbUsuari.removeAllItems();
 
         for (Usuari u : GestionDatos.usuaris) {
-            cmbUsuari.addItem(u.toString());
+            cmbUsuari.addItem(u);
+        }
+    }
+
+    private void carregarJocs() {
+        cmbJoc.removeAllItems();
+
+        for (Joc j : GestionDatos.jocs) {
+            cmbJoc.addItem(j);
         }
     }
 
@@ -45,33 +64,69 @@ public class RegistrarLloguer extends javax.swing.JDialog {
         rbXbox.setEnabled(false);
         rbPC.setEnabled(false);
 
+        jLabel7.setText("(0 unidades)");
+        jLabel8.setText("(0 unidades)");
+        jLabel9.setText("(0 unidades)");
+        jLabel10.setText("(0 unidades)");
+
         if (joc == null) {
             return;
         }
 
         for (Plataforma p : joc.getPlataformas()) {
 
-            boolean disponible = p.getUnidades() > 0;
+            int unidades = p.getUnidades();
 
             switch (p.getNom()) {
 
-                case "PS5":
-                    rbPS5.setEnabled(disponible);
+                case "PC":
+                    rbPC.setEnabled(unidades > 0);
+                    jLabel7.setText("(" + unidades + " unidades)");
                     break;
 
-                case "Switch 2":
-                    rbSwitch.setEnabled(disponible);
+                case "PS5":
+                    rbPS5.setEnabled(unidades > 0);
+                    jLabel8.setText("(" + unidades + " unidades)");
                     break;
 
                 case "Xbox":
-                    rbXbox.setEnabled(disponible);
+                    rbXbox.setEnabled(unidades > 0);
+                    jLabel9.setText("(" + unidades + " unidades)");
                     break;
 
-                case "PC":
-                    rbPC.setEnabled(disponible);
+                case "Switch 2":
+                    rbSwitch.setEnabled(unidades > 0);
+                    jLabel10.setText("(" + unidades + " unidades)");
                     break;
             }
         }
+    }
+
+    private void configurarFechas() {
+
+        Date fechaInicio = new Date();
+
+        jSpinner2.setModel(new SpinnerDateModel(
+                fechaInicio, null, null, Calendar.MINUTE
+        ));
+
+        jSpinner2.setEditor(
+                new JSpinner.DateEditor(jSpinner2, "dd/MM/yyyy HH:mm")
+        );
+
+        Calendar calendario = Calendar.getInstance();
+        calendario.setTime(fechaInicio);
+        calendario.add(Calendar.DAY_OF_MONTH, 7);
+
+        Date fechaRetorno = calendario.getTime();
+
+        jSpinner1.setModel(new SpinnerDateModel(
+                fechaRetorno, null, null, Calendar.MINUTE
+        ));
+
+        jSpinner1.setEditor(
+                new JSpinner.DateEditor(jSpinner1, "dd/MM/yyyy HH:mm")
+        );
     }
 
     /**
@@ -120,16 +175,15 @@ public class RegistrarLloguer extends javax.swing.JDialog {
 
         jLabel3.setText("Usuario:");
 
-        cmbJoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbJoc.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentHidden(java.awt.event.ComponentEvent evt) {
                 cmbJocComponentHidden(evt);
             }
         });
+        cmbJoc.addActionListener(this::cmbJocActionPerformed);
 
         jLabel4.setText("Juego:");
 
-        cmbUsuari.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbUsuari.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentHidden(java.awt.event.ComponentEvent evt) {
                 cmbUsuariComponentHidden(evt);
@@ -322,16 +376,29 @@ public class RegistrarLloguer extends javax.swing.JDialog {
     }//GEN-LAST:event_cmbUsuariComponentHidden
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-
+        Usuari u = (Usuari) cmbUsuari.getSelectedItem();
+        Joc j = (Joc) cmbJoc.getSelectedItem();
+        Date inicio = (Date) jSpinner2.getValue();
+        Date retorn = (Date) jSpinner1.getValue();
+        Plataforma p = obtenerPlataformaSeleccionada();
+        
+        if(p == null){
+            showMessageDialog(this,"Seleccione una plataforma.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }else{
+            GestionDatos.registrarLloguer(u, j, p, inicio, retorn);
+        
+            dispose();
+        }
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        dispose();        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void cmbJocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbJocActionPerformed
+        actualizarPlataformas();
+    }//GEN-LAST:event_cmbJocActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -366,11 +433,44 @@ public class RegistrarLloguer extends javax.swing.JDialog {
         });
     }
 
+    private Plataforma obtenerPlataformaSeleccionada() {
+
+        Joc joc = (Joc) cmbJoc.getSelectedItem();
+
+        if (joc == null) {
+            return null;
+        }
+
+        String nombre = null;
+
+        if (rbPS5.isSelected()) {
+            nombre = "PS5";
+        } else if (rbSwitch.isSelected()) {
+            nombre = "Switch 2";
+        } else if (rbXbox.isSelected()) {
+            nombre = "Xbox";
+        } else if (rbPC.isSelected()) {
+            nombre = "PC";
+        }
+
+        if (nombre == null) {
+            return null;
+        }
+
+        for (Plataforma p : joc.getPlataformas()) {
+            if (p.getNom().equals(nombre)) {
+                return p;
+            }
+        }
+
+        return null;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnConfirmar;
-    private javax.swing.JComboBox<String> cmbJoc;
-    private javax.swing.JComboBox<String> cmbUsuari;
+    private javax.swing.JComboBox<Joc> cmbJoc;
+    private javax.swing.JComboBox<Usuari> cmbUsuari;
     private javax.swing.ButtonGroup grupoPlataformas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

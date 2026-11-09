@@ -2,6 +2,8 @@ package com.mycompany.tasca01.gestion;
 
 import com.mycompany.tasca01.dto.*;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class GestionDatos {
 
@@ -54,38 +56,35 @@ public class GestionDatos {
 
         jocs.add(joc1);
         jocs.add(joc2);
+
+        Calendar calendario = Calendar.getInstance();
+
+        calendario.add(Calendar.DAY_OF_MONTH, -14);
+        Date inicio = calendario.getTime();
+
+        calendario.add(Calendar.DAY_OF_MONTH, 7);
+        Date devolucion1 = calendario.getTime();
+
+        Lloguer l1 = new Lloguer(getNumeroRegistre(), u1, joc1, inicio, devolucion1, plataformas1.get(0));
+        
+        lloguers.add(l1);
     }
 
-    public static boolean registrarLloguer(Usuari usuari, Joc joc, Plataforma plataforma) {
+    public static boolean registrarLloguer(Usuari usuari, Joc joc, Plataforma plataforma, Date inicio, Date devolucion) {
 
-        if (plataforma.getUnidades() <= 0) {
+        if (plataforma == null || plataforma.getUnidades() <= 0) {
             return false;
         }
 
-        java.util.Date inicio = new java.util.Date();
+        if (inicio == null || devolucion == null || !devolucion.after(inicio)) {
+            return false;
+        }
 
-        java.util.Calendar calendar
-                = java.util.Calendar.getInstance();
-
-        calendar.setTime(inicio);
-        calendar.add(java.util.Calendar.DAY_OF_MONTH, 7);
-
-        java.util.Date devolucion = calendar.getTime();
-
-        Lloguer nuevo = new Lloguer(
-                getNumeroRegistre(),
-                usuari,
-                joc,
-                inicio,
-                devolucion,
-                plataforma
-        );
+        Lloguer nuevo = new Lloguer(getNumeroRegistre(), usuari, joc, inicio, devolucion, plataforma);
 
         lloguers.add(nuevo);
 
-        plataforma.setUnidades(
-                plataforma.getUnidades() - 1
-        );
+        plataforma.setUnidades(plataforma.getUnidades() - 1);
 
         return true;
     }

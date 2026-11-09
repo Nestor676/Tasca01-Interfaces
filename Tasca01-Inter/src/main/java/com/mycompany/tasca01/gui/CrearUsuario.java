@@ -6,6 +6,7 @@ package com.mycompany.tasca01.gui;
 
 import com.mycompany.tasca01.dto.Usuari;
 import com.mycompany.tasca01.gestion.GestionDatos;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 /**
  *
@@ -144,7 +145,7 @@ public class CrearUsuario extends javax.swing.JDialog {
 
         if (nom.isEmpty() || cognom1.isEmpty() || cognom2.isEmpty() || dni.isEmpty() || telefon.isEmpty()) {
 
-            javax.swing.JOptionPane.showMessageDialog(this,"Cal omplir tots els camps.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+            showMessageDialog(this,"LLena todos los campos.", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
 
             return;
         }
