@@ -4,23 +4,23 @@
  */
 package com.mycompany.tasca01.gui;
 
+import com.mycompany.tasca01.dto.Lloguer;
 import com.mycompany.tasca01.dto.Usuari;
 import com.mycompany.tasca01.gestion.GestionDatos;
 import static javax.swing.JOptionPane.showMessageDialog;
 
-public class Borrar extends javax.swing.JDialog {
-    
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Borrar.class.getName());
+public class BorrarUsuario extends javax.swing.JDialog {
 
-    /**
-     * Creates new form Borrar
-     */
-    public Borrar(java.awt.Frame parent, boolean modal) {
+    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(BorrarUsuario.class.getName());
+
+    public BorrarUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+
+        cargarUsuarios();
     }
-    
-    private void carregarUsuaris() {
+
+    private void cargarUsuarios() {
 
         jComboBox1.removeAllItems();
 
@@ -95,16 +95,21 @@ public class Borrar extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Usuari u = (Usuari) jComboBox1.getSelectedItem();
+
+        for (Lloguer l : GestionDatos.lloguers) {
+
+            if (l.getUsuari() == u && !l.isRetornat()) {
+                showMessageDialog(this, "El usuario tiene un alquiler activo y no se puede borrar");
+                return;
+            }
+        }
         
         GestionDatos.usuaris.remove(u);
-        showMessageDialog(this,"Usuario borrado");
-        
+
+        showMessageDialog(this, "Usuario borrado correctamente");
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -127,7 +132,7 @@ public class Borrar extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Borrar dialog = new Borrar(new javax.swing.JFrame(), true);
+                BorrarUsuario dialog = new BorrarUsuario(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

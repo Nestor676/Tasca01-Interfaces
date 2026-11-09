@@ -148,6 +148,7 @@ public class MainScreen extends javax.swing.JFrame {
         jMenuUsuari.add(jMenuCrearUsuari);
 
         jMenuBorrarUsuari.setText("Borrar");
+        jMenuBorrarUsuari.addActionListener(this::jMenuBorrarUsuariActionPerformed);
         jMenuUsuari.add(jMenuBorrarUsuari);
 
         jMenuBar1.add(jMenuUsuari);
@@ -159,6 +160,7 @@ public class MainScreen extends javax.swing.JFrame {
         jMenuJoc.add(jMenuCrearJoc);
 
         jMenuBorrarJoc.setText("Borrar");
+        jMenuBorrarJoc.addActionListener(this::jMenuBorrarJocActionPerformed);
         jMenuJoc.add(jMenuBorrarJoc);
 
         jMenuBar1.add(jMenuJoc);
@@ -224,6 +226,20 @@ public class MainScreen extends javax.swing.JFrame {
         
         cargarTabla();
     }//GEN-LAST:event_jMenuTornarActionPerformed
+
+    private void jMenuBorrarUsuariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuBorrarUsuariActionPerformed
+        BorrarUsuario ventana = new BorrarUsuario(this, true);
+
+        ventana.setLocationRelativeTo(this);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_jMenuBorrarUsuariActionPerformed
+
+    private void jMenuBorrarJocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuBorrarJocActionPerformed
+        BorrarJuego ventana = new BorrarJuego(this, true);
+
+        ventana.setLocationRelativeTo(this);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_jMenuBorrarJocActionPerformed
 
         public static void main(String args[]) {
             /* Set the Nimbus look and feel */
