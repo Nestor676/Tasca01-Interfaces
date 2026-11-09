@@ -154,7 +154,7 @@ public class CrearUsuario extends javax.swing.JDialog {
 
         GestionDatos.usuaris.add(nouUsuari);
 
-        javax.swing.JOptionPane.showMessageDialog(this, "Usuari creat correctament.");
+        javax.swing.JOptionPane.showMessageDialog(this, "Usuario creado correctamente");
 
         dispose();
     }//GEN-LAST:event_btnConfirmarActionPerformed

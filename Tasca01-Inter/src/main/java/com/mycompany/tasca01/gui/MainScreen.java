@@ -156,6 +156,7 @@ import javax.swing.table.DefaultTableModel;
         jMenuJoc.setText("Joc");
 
         jMenuCrearJoc.setText("Crear");
+        jMenuCrearJoc.addActionListener(this::jMenuCrearJocActionPerformed);
         jMenuJoc.add(jMenuCrearJoc);
 
         jMenuBorrarJoc.setText("Borrar");
@@ -201,13 +202,20 @@ import javax.swing.table.DefaultTableModel;
 
     private void jMenuRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuRegistrarActionPerformed
             
-        RegistrarLloguer ventana2 = new RegistrarLloguer(this, true);
+        RegistrarLloguer ventana = new RegistrarLloguer(this, true);
 
-        ventana2.setLocationRelativeTo(this);
-        ventana2.setVisible(true);
+        ventana.setLocationRelativeTo(this);
+        ventana.setVisible(true);
         
         cargarTabla();
     }//GEN-LAST:event_jMenuRegistrarActionPerformed
+
+    private void jMenuCrearJocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCrearJocActionPerformed
+        CrearJoc ventana = new CrearJoc(this, true);
+
+        ventana.setLocationRelativeTo(this);
+        ventana.setVisible(true);
+    }//GEN-LAST:event_jMenuCrearJocActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
