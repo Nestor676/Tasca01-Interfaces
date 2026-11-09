@@ -189,6 +189,7 @@ public class RegistrarLloguer extends javax.swing.JDialog {
                 cmbUsuariComponentHidden(evt);
             }
         });
+        cmbUsuari.addActionListener(this::cmbUsuariActionPerformed);
 
         jLabel5.setText("Fecha de inicio:");
 
@@ -398,6 +399,10 @@ public class RegistrarLloguer extends javax.swing.JDialog {
     private void cmbJocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbJocActionPerformed
         actualizarPlataformas();
     }//GEN-LAST:event_cmbJocActionPerformed
+
+    private void cmbUsuariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbUsuariActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbUsuariActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
